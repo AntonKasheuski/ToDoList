@@ -5,7 +5,7 @@ type PropsType = {
     callback: () => void
 }
 
-const Button = (props: PropsType) => {
+export const Button = (props: PropsType) => {
     const onClickButtonHandler = () => {
         props.callback()
     }
@@ -14,5 +14,3 @@ const Button = (props: PropsType) => {
         <button onClick={onClickButtonHandler}>{props.name}</button>
     );
 };
-
-export default Button;

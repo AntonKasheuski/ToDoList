@@ -6,7 +6,7 @@ type PropsType = {
     setTitle: (title: string) => void
 }
 
-const Input = (props: PropsType) => {
+export const Input = (props: PropsType) => {
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         props.setTitle(e.currentTarget.value)
     }
@@ -23,5 +23,3 @@ const Input = (props: PropsType) => {
         />
     );
 };
-
-export default Input;

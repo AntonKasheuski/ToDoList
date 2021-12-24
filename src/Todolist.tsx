@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {FilterValuesType} from './App';
-import Input from "./components/Input";
-import Button from "./components/Button";
+import {Input} from "./components/Input";
+import {Button} from "./components/Button";
 
 type TaskType = {
     id: string
