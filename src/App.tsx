@@ -3,6 +3,8 @@ import './App.css';
 import TodoList from "./TodoList";
 import {v1} from "uuid";
 import {AddItemForm} from "./AddItemForm";
+import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
+import {Menu} from "@material-ui/icons";
 
 export type TaskType = {
     id: string
@@ -97,26 +99,54 @@ function App() {
     }
 
     const todoListsComps = todoLists.map(tl =>
-        <TodoList
-            key={tl.id}
-            todoListID={tl.id}
-            filter={tl.filter}
-            title={tl.title}
-            tasks={getTasksForRender(tl.filter, tasks[tl.id])}
-            addTask={addTask}
-            removeTask={removeTask}
-            changeTodoListFilter={changeTodoListFilter}
-            changeTaskStatus={changeTaskStatus}
-            removeTodoList={removeTodoList}
-            changeTaskTitle={changeTaskTitle}
-            changeTodoListTitle={changeTodoListTitle}
-        />)
+        <Grid item key={tl.id}>
+            <Paper
+                elevation={6}
+                style={{
+                    padding: "15px",
+                    width: "300px",
+                }}
+            >
+                <TodoList
+                    todoListID={tl.id}
+                    filter={tl.filter}
+                    title={tl.title}
+                    tasks={getTasksForRender(tl.filter, tasks[tl.id])}
+                    addTask={addTask}
+                    removeTask={removeTask}
+                    changeTodoListFilter={changeTodoListFilter}
+                    changeTaskStatus={changeTaskStatus}
+                    removeTodoList={removeTodoList}
+                    changeTaskTitle={changeTaskTitle}
+                    changeTodoListTitle={changeTodoListTitle}
+                />
+            </Paper>
+        </Grid>
+    )
 
     //UI:
     return (
         <div className="App">
-            <AddItemForm addItem={addTodoList} />
-            {todoListsComps}
+            <AppBar position="static">
+
+                <Toolbar style={{justifyContent: "space-between"}}>
+                    <IconButton edge="start" color="inherit" aria-label="menu">
+                        <Menu/>
+                    </IconButton>
+                    <Typography variant="h6">
+                        Todolists
+                    </Typography>
+                    <Button color="inherit" variant={"outlined"}>Login</Button>
+                </Toolbar>
+            </AppBar>
+            <Container fixed>
+                <Grid container justifyContent={"center"} style={{padding: "20px"}}>
+                    <AddItemForm addItem={addTodoList}/>
+                </Grid>
+                <Grid container justifyContent={"center"} spacing={5}>
+                    {todoListsComps}
+                </Grid>
+            </Container>
         </div>
     )
 }
