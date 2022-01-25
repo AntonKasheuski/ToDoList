@@ -13,7 +13,7 @@ export type TaskType = {
 }
 export type FilterValuesType = "all" | "active" | "completed"
 
-type TodoListType = {
+export type TodoListType = {
     id: string
     title: string
     filter: FilterValuesType
@@ -27,6 +27,7 @@ function App() {
     //BLL:
     const todoListID_1 = v1();
     const todoListID_2 = v1();
+
     const [todoLists, setTodoLists] = useState<Array<TodoListType>>([
         {id: todoListID_1, title: "What to learn", filter: "all"},
         {id: todoListID_2, title: "What to buy", filter: "all"},
@@ -40,6 +41,7 @@ function App() {
             {id: v1(), title: "BEER", isDone: false}],
     })
 
+    //tasks:
     const removeTask = (taskID: string, todoListID: string) => {
         /*const copy = {...tasks[todoListID]}
         const newCopy = copy.filter(t => t.id !== taskID)
@@ -64,9 +66,12 @@ function App() {
         tasksCopy[todoListID] = tasks[todoListID].map(t => t.id === taskID ? {...t, isDone} : t)
         setTasks(tasksCopy)
     }
-    const changeTodoListFilter = (filter: FilterValuesType, todoListID: string) => {
-        setTodoLists(todoLists.map(tl => tl.id === todoListID ? {...tl, filter} : tl))
+    const changeTaskTitle = (taskID: string, title: string, todoListID: string) => {
+        const tasksCopy = {...tasks}
+        tasksCopy[todoListID] = tasks[todoListID].map(t => t.id === taskID ? {...t, title} : t)
+        setTasks(tasksCopy)
     }
+    //todolists:
     const removeTodoList = (todoListID: string) => {
         setTodoLists(todoLists.filter(tl => tl.id !== todoListID))
         const tasksCopy = {...tasks}
@@ -78,10 +83,8 @@ function App() {
         setTodoLists([...todoLists, {id: newTodoListID, title: title, filter: "all"}])
         setTasks({...tasks, [newTodoListID]: []})
     }
-    const changeTaskTitle = (taskID: string, title: string, todoListID: string) => {
-        const tasksCopy = {...tasks}
-        tasksCopy[todoListID] = tasks[todoListID].map(t => t.id === taskID ? {...t, title} : t)
-        setTasks(tasksCopy)
+    const changeTodoListFilter = (filter: FilterValuesType, todoListID: string) => {
+        setTodoLists(todoLists.map(tl => tl.id === todoListID ? {...tl, filter} : tl))
     }
     const changeTodoListTitle = (title: string, todoListID: string) => {
         setTodoLists(todoLists.map(tl => tl.id === todoListID ? {...tl, title} : tl))
@@ -128,7 +131,6 @@ function App() {
     return (
         <div className="App">
             <AppBar position="static">
-
                 <Toolbar style={{justifyContent: "space-between"}}>
                     <IconButton edge="start" color="inherit" aria-label="menu">
                         <Menu/>
